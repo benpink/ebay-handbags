@@ -1,0 +1,13 @@
+{% extends "_base.html" %}
+
+{% block content %}
+  <ul>
+    {% for designer in response %}
+      <li>
+        <a href="/designer/{{ designer }}">
+          {{ designer }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

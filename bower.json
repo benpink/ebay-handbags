@@ -1,0 +1,21 @@
+{
+  "name": "ebay-handbags",
+  "version": "0.0.0",
+  "authors": [
+    "Ben Pinkerton <bjpinkerton@gmail.com>"
+  ],
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bourbon": "~4.2.4",
+    "jquery": "~2.1.4",
+    "normalize-css": "normalize.css#~3.0.3"
+  }
+}

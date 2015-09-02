@@ -1,0 +1,32 @@
+@import "vendor/bourbon";
+@import "vendor/normalize";
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+ul li {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+ul li img {
+  max-width: 100%;
+}

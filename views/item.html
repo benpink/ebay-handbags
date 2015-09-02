@@ -1,0 +1,11 @@
+{% extends "_base.html" %}
+
+{% block content %}
+  <ul>
+    {% for photo in response.Item.PictureURL %}
+      <li>
+        <img src="{{ photo | replace(r/_\d+\.JPG/, "_12.JPG") }}">
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
