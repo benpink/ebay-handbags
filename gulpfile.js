@@ -21,7 +21,7 @@ gulp.task('bower', function() { 
 });
 
 // CSS compilation
-gulp.task('css', function() {
+gulp.task('css', ['bower'], function() {
   gulp.src(config.sassPath + '/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -30,7 +30,7 @@ gulp.task('css', function() {
 });
 
 // JS concat and minify
-gulp.task('js', function(callback) {
+gulp.task('js', ['bower'], function(callback) {
   return gulp.src([
       config.bowerDir + '/jquery/dist/jquery.js',
       config.assetsPath + '/js/app.js'
