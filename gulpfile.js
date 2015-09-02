@@ -1,32 +1,39 @@
-var gulp        = require('gulp'), 
-    sass        = require('gulp-sass') ,
+var gulp        = require('gulp'),
+    sass        = require('gulp-sass'),
     bower       = require('gulp-bower'),
     sourcemaps  = require('gulp-sourcemaps'),
     concat      = require('gulp-concat'),
-    uglify      = require('gulp-uglify');
+    uglify      = require('gulp-uglify'),
+    runSequence = require('run-sequence'),
+    del         = require('del');
 
 var config = {
+    publicPath  : './public',
     assetsPath  : './assets',
     sassPath    : './assets/sass',
     cssPath     : './public/css',
     jsPath      : './public/js',
-    bowerDir    : './bower_components' 
+    bowerDir    : './bower_components'
 }
 
+gulp.task('clean', function () {
+  return del(config.publicPath);
+});
+
 // Runs 'bower install'
-// Used when setting up a dev env for the first time
-gulp.task('bower', function() { 
+// Used when setting up an environment for the first time
+gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest(config.bowerDir)) 
+    .pipe(gulp.dest(config.bowerDir));
 });
 
 // CSS compilation
 gulp.task('css', function() {
-  gulp.src(config.sassPath + '/**/*.scss')
+  return gulp.src(config.sassPath + '/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest(config.cssPath))
+    .pipe(gulp.dest(config.cssPath));
 });
 
 // JS concat and minify
@@ -42,9 +49,14 @@ gulp.task('js', function(callback) {
     .pipe(gulp.dest(config.jsPath));
 });
 
- gulp.task('watch', function() {
-   gulp.watch(config.sassPath + '/**/*.scss', ['css']); 
-   gulp.watch(config.assetsPath + '/**/*.js', ['js']); 
+// gulp watch
+gulp.task('watch', function() {
+  gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+  gulp.watch(config.assetsPath + '/**/*.js', ['js']);
 });
 
-  gulp.task('default', ['bower', 'css', 'js']);
+// gulp default
+// downloads and builds js/css
+gulp.task('default', function(callback) {
+  runSequence('clean', 'bower', ['css', 'js']);
+});
