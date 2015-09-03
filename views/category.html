@@ -1,13 +1,15 @@
 {% extends "_base.html" %}
 
 {% block content %}
-  <ul>
+  <h1>{{ category | title }}</h1>
+  <ul class="item-list">
     {% for item in response.findItemsByKeywordsResponse[0].searchResult[0].item %}
       <li>
-        <a href="/item/{{ item.itemId }}">
-          <img src="{{ item.galleryURL }}"><br>
-          {{ item.title }}<br>
-          {{ item.sellingStatus[0].convertedCurrentPrice[0].@currencyId | replace('USD', '$') }}{{ item.sellingStatus[0].currentPrice[0].__value__ }}
+        <a href="/designer/{{ category }}/{{ item.itemId }}">
+          <div class="thumb" style="background-image: url('{{ item.galleryURL }}');">
+            <img src="/images/square.gif">
+          </div>
+          {{ item.sellingStatus[0].convertedCurrentPrice[0].@currencyId | replace('USD', '$') }}{{ item.sellingStatus[0].currentPrice[0].__value__ | round }}
         </a>
       </li>
     {% endfor %}

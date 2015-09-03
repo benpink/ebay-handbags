@@ -5,58 +5,66 @@ var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
     uglify      = require('gulp-uglify'),
     runSequence = require('run-sequence'),
-    del         = require('del');
+    del         = require('del'),
+    imagemin    = require('gulp-imagemin');
 
 var config = {
-    publicPath  : './public',
-    assetsPath  : './assets',
-    sassPath    : './assets/sass',
-    cssPath     : './public/css',
-    jsPath      : './public/js',
-    bowerDir    : './bower_components'
+    publicDir  : './public',
+    assetsDir  : './assets',
+    bowerDir   : './bower_components'
 }
 
+// Delete public dir
 gulp.task('clean', function () {
-  return del(config.publicPath);
+  return del(config.publicDir);
 });
 
-// Runs 'bower install'
-// Used when setting up an environment for the first time
+// Bower install
 gulp.task('bower', function() {
   return bower()
     .pipe(gulp.dest(config.bowerDir));
 });
 
+// Image optimization
+gulp.task('images', function () {
+    return gulp.src(config.assetsDir + '/images/*')
+      .pipe(imagemin({
+          progressive: true,
+      }))
+      .pipe(gulp.dest(config.publicDir + '/images'));
+});
+
 // CSS compilation
 gulp.task('css', function() {
-  return gulp.src(config.sassPath + '/**/*.scss')
+  return gulp.src(config.assetsDir + '/sass/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest(config.cssPath));
+    .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
 // JS concat and minify
 gulp.task('js', function(callback) {
   return gulp.src([
       config.bowerDir + '/jquery/dist/jquery.js',
-      config.assetsPath + '/js/app.js'
+      config.assetsDir + '/js/app.js'
     ])
     .pipe(sourcemaps.init())
     .pipe(concat('all.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest(config.jsPath));
+    .pipe(gulp.dest(config.publicDir + '/js'));
 });
 
-// gulp watch
+// Watch tasks
 gulp.task('watch', function() {
-  gulp.watch(config.sassPath + '/**/*.scss', ['css']);
-  gulp.watch(config.assetsPath + '/**/*.js', ['js']);
+  gulp.watch(config.assetsDir + '/images/*', ['images']);
+  gulp.watch(config.assetsDir + '/**/*.scss', ['css']);
+  gulp.watch(config.assetsDir + '/**/*.js', ['js']);
 });
 
 // gulp default
-// downloads and builds js/css
+// builds js/css/images
 gulp.task('default', function(callback) {
-  runSequence('clean', 'bower', ['css', 'js']);
+  runSequence('clean', 'bower', ['images', 'css', 'js']);
 });

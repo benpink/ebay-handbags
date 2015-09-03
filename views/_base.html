@@ -2,10 +2,29 @@
 <html>
   <head>
     <title>Find Designer Handbags Near You</title>
-    <link rel="stylesheet" href="/css/app.css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet'>
+    <link href="/css/app.css" rel="stylesheet" >
   </head>
   <body>
-    {% block content %}{% endblock %}
+    <div class="page-wrap">
+      <div class="sidebar">
+        <h2>Designer</h2>
+        <ul>
+          {% set designers = ['Celine', 'Chanel', 'Chloe', 'Fendi', 'Marc Jacobs', 'Prada', 'Burberry'] %}
+          {% for designer in designers %}
+            <li{% if category and category | lower == designer | lower %} class="active"{% endif %}>
+              <a href="/designer/{{ designer | lower }}">
+                {{ designer }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        <a href="/">Home</a>
+      </div>
+      <div class="content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
     <script src="/js/all.js"></script>
   </body>
 </html>
