@@ -4,7 +4,7 @@ var request   = require('request');
 var router    = express.Router();
 
 /* GET item page. */
-router.get('/:category/:itemId', function(req, res, next) {
+router.get('/:category/item/:itemId', function(req, res, next) {
   var url = 'http://open.api.ebay.com/shopping?callname=GetSingleItem' +
               '&appid='+ config.ebayApiKey +
               '&siteid=0&version=515' +

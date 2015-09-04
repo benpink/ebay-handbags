@@ -13,13 +13,19 @@
           {% set designers = ['Celine', 'Chanel', 'Chloe', 'Fendi', 'Marc Jacobs', 'Prada', 'Burberry'] %}
           {% for designer in designers %}
             <li{% if category and category | lower == designer | lower %} class="active"{% endif %}>
-              <a href="/designer/{{ designer | lower }}">
+              <a href="/designer/{{ designer | lower }}{% if qs %}?{{ qs }}{% endif %}">
                 {{ designer }}
               </a>
             </li>
           {% endfor %}
         </ul>
-        <a href="/">Home</a>
+        {% if category %}
+          {% if includeAuction %}
+            <a href="/designer/{{ category | lower }}{% if condition %}?c={{ condition }}{% endif %}">Hide Auction Items</a>
+          {% else %}
+            <a href="/designer/{{ category | lower }}?a=1{% if qs %}&{{ qs }}{% endif %}">Show Auction Items</a>
+          {% endif %}
+        {% endif %}
       </div>
       <div class="content">
         {% block content %}{% endblock %}

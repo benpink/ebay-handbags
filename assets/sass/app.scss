@@ -37,7 +37,7 @@ $sidebar-width: 250px;
 }
 .sidebar ul {
   list-style: none;
-  margin: 0;
+  margin: 0 0 2rem;
   padding: 0;
 }
 .sidebar ul a {
@@ -52,7 +52,7 @@ $sidebar-width: 250px;
 
 /* Content */
 .content {
-  padding: 30px 30px;
+  padding: 30px 20px;
   margin-left:  $sidebar-width;
 }
 .content h1 {
@@ -73,13 +73,15 @@ $sidebar-width: 250px;
 .item-list li {
   float: left;
   width: 23%;
-  padding: 0.5% 0.5% 2%;
+  padding: 5px 5px 1rem;
   margin: 2% 1%;
   background-color: #eee;
   border-radius: 0 0 5px 5px;
-  @include animation(fadeInDown 0.3s ease-out);
+  position: relative;
+  @include transition(background-color 0.2s);
+  @include animation(fadeInDown 0.2s ease-out);
   @include animation-fill-mode(both);
-  @for $i from 1 through 30 {
+  @for $i from 1 through 40 {
     &:nth-child(#{$i}) {
       @include animation-delay(#{$i * 0.05}s);
     }
@@ -105,6 +107,82 @@ $sidebar-width: 250px;
   display: block;
   width: 100%;
   height: 100%;
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: right;
+  span {
+    font: 9px Helvetica;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    width: 100px;
+    display: block;
+    background: #79A70A;
+    background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+    position: absolute;
+    top: 19px;
+    right: -21px;
+    &::before {
+      content: "";
+      position: absolute; left: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid #79A70A;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+    &::after {
+      content: "";
+      position: absolute; right: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #79A70A;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+  }
+}
+
+/* Filters */
+.filters {
+  font-size: 14px;
+  text-align: center;
+}
+.filters a {
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  text-decoration: none;
+  &:hover,
+  &.active {
+    text-decoration: underline;
+  }
+}
+
+/* Pagination */
+.pagination {
+  text-align: center;
+}
+.pagination a {
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  text-decoration: none;
+  &:hover,
+  &.active {
+    text-decoration: underline;
+  }
 }
 
 @include keyframes(fadeIn) {

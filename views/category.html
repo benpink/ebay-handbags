@@ -2,16 +2,31 @@
 
 {% block content %}
   <h1>{{ category | title }}</h1>
+  <div class="filters">
+    <a href="/designer/{{ category }}{% if includeAuction %}?a=1{% endif %}"{% if not condition %} class="active"{% endif %}>All</a>
+    <a href="/designer/{{ category }}?c=New{% if includeAuction %}&a=1{% endif %}"{% if condition and 'New' in condition %} class="active"{% endif %}>New</a>
+    <a href="/designer/{{ category }}?c=Used{% if includeAuction %}&a=1{% endif %}"{% if condition and 'Used' in condition %} class="active"{% endif %}>Pre-Owned</a>
+  </div>
   <ul class="item-list">
     {% for item in response.findItemsByKeywordsResponse[0].searchResult[0].item %}
       <li>
-        <a href="/designer/{{ category }}/{{ item.itemId }}">
-          <div class="thumb" style="background-image: url('{{ item.galleryURL }}');">
+        <a href="/designer/{{ category }}/item/{{ item.itemId }}">
+          <div class="thumb" style="background-image: url('{{ item.pictureURLLarge }}');">
             <img src="/images/square.gif">
           </div>
-          {{ item.sellingStatus[0].convertedCurrentPrice[0].@currencyId | replace('USD', '$') }}{{ item.sellingStatus[0].currentPrice[0].__value__ | round }}
+          {% if item.listingInfo[0].listingType == 'Auction' %}Current Bid: {% endif %}{{ item.sellingStatus[0].convertedCurrentPrice[0].@currencyId | replace('USD', '$') }}{{ item.sellingStatus[0].currentPrice[0].__value__ | round }}
+          {% if item.condition[0].conditionId[0] | int < 2000 %}
+            <div class="ribbon"><span>New</span></div>
+          {% endif %}
         </a>
+        <!--br><a href="{{ item.viewItemURL }}">View on ebay</a-->
       </li>
     {% endfor %}
   </ul>
+  <div class="pagination">
+    {% for i in range(1, 9) %}
+      <a href="/designer/{{ category }}{% if i != 1 %}/{{ i }}{% endif %}{% if qs %}?{{ qs }}{% endif %}"{% if page == i or (not page and i == 1) %} class="active"{% endif %}>{{ i }}</a>
+    {% endfor %}
+  </div>
+  <!--a href="/designer/{{ category }}?a=1">Include Auction Items</a-->
 {% endblock %}
