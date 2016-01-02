@@ -1,0 +1,12 @@
+<div class="sidebar">
+  <h2><span class="back-btn"></span> {{ config.category_title }}</h2>
+  <ul>
+    {% for category in config.categories %}
+      <li{% if current_category and current_category | lower == category | lower %} class="active"{% endif %}>
+        <a href="/designer/{{ category | lower }}{% if qs %}?{{ qs }}{% endif %}">
+          {{ category }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

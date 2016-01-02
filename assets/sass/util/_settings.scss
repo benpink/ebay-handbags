@@ -1,0 +1,9 @@
+$sidebar-width: 250px;
+
+$breakpoints: (
+  'small':  (max-width: 400px),
+  'medium': (max-width: 800px),
+  'large':  (max-width: 1000px),
+  'huge':   (max-width: 1200px),
+  'massive':(max-width: 1400px)
+);

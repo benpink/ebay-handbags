@@ -1,0 +1,52 @@
+/* Item list */
+.item-list {
+  @include clearfix;
+  margin: 0;
+  padding: 1em 0;
+  list-style: none;
+  text-align: center;
+}
+.item-list li {
+  float: left;
+  width: 18%;
+  padding: 5px 5px 1rem;
+  margin: 2% 1%;
+  background-color: #eee;
+  border-radius: 0 0 5px 5px;
+  position: relative;
+  @include transition(background-color 0.2s);
+  @include animation(fadeIn 0.2s ease-out);
+  &:hover {
+    background-color: #ddd;
+  }
+  @include respond-to('massive') {
+    width: 23%;
+  }
+  @include respond-to('huge') {
+    width: 31%;
+  }
+  @include respond-to('medium') {
+    width: 48%;
+  }
+  @include respond-to('small') {
+    width: 98%;
+  }
+}
+.item-list a {
+  text-decoration: none;
+  font-style: italic;
+  font-size: 14px;
+  overflow: hidden;
+}
+.item-list .thumb {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  margin-bottom: 1rem;
+  background-color: #fff;
+}
+.item-list .thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

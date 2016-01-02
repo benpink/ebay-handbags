@@ -1,0 +1,7 @@
+.back-btn {
+  display: inline-block;
+  padding: .20em;
+  border: solid;
+  border-width: 0 .2em .2em 0;
+  @include transform(rotate(135deg));
+}

@@ -14,8 +14,11 @@ router.get('/:category/:page?', function(req, res, next) {
   var url = 'http://svcs.ebay.com/services/search/FindingService/v1?' +
               'SECURITY-APPNAME=' + config.ebayApiKey +
               '&OPERATION-NAME=findItemsByKeywords' +
-              '&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON' +
+              '&SERVICE-VERSION=1.0.0' +
+              '&RESPONSE-DATA-FORMAT=JSON' +
               '&outputSelector=PictureURLLarge' +
+              '&affiliate.trackingId=5337798873' +
+              '&affiliate.networkId=9' +
               '&keywords=' + category + '%20handbag' +
               '&paginationInput.entriesPerPage=' + config.itemsPerPage;
 
@@ -39,11 +42,11 @@ router.get('/:category/:page?', function(req, res, next) {
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.render('category', {
-        response        : JSON.parse(body),
-        category        : category,
-        condition       : condition,
-        qs              : qs,
-        page            : page
+        response          : JSON.parse(body),
+        current_category  : category,
+        condition         : condition,
+        qs                : qs,
+        page              : page
       });
     }
   })

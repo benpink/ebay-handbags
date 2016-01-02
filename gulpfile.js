@@ -47,10 +47,10 @@ gulp.task('css', function() {
 gulp.task('js', function(callback) {
   return gulp.src([
       config.bowerDir + '/jquery/dist/jquery.js',
-      config.assetsDir + '/js/app.js'
+      config.assetsDir + '/js/side-menu.js'
     ])
     .pipe(sourcemaps.init())
-    .pipe(concat('all.js'))
+    .pipe(concat('app.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(config.publicDir + '/js'));

@@ -1,0 +1,14 @@
+/* Pagination */
+.pagination {
+  text-align: center;
+}
+.pagination a {
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  text-decoration: none;
+  &:hover,
+  &.active {
+    text-decoration: underline;
+  }
+}

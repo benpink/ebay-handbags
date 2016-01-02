@@ -1,0 +1,15 @@
+/* Filters */
+.filters {
+  font-size: 14px;
+  text-align: center;
+}
+.filters a {
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  text-decoration: none;
+  &:hover,
+  &.active {
+    text-decoration: underline;
+  }
+}
