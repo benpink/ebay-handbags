@@ -3,14 +3,14 @@
 {% block content %}
   <h1>{{ category | title }}</h1>
   <div class="filters">
-    <a href="/designer/{{ category }}{% if includeAuction %}?a=1{% endif %}"{% if not condition %} class="active"{% endif %}>All</a>
-    <a href="/designer/{{ category }}?c=New{% if includeAuction %}&a=1{% endif %}"{% if condition and 'New' in condition %} class="active"{% endif %}>New</a>
-    <a href="/designer/{{ category }}?c=Used{% if includeAuction %}&a=1{% endif %}"{% if condition and 'Used' in condition %} class="active"{% endif %}>Pre-Owned</a>
+    <a href="/designer/{{ category }}"{% if not condition %} class="active"{% endif %}>All</a>
+    <a href="/designer/{{ category }}?c=New"{% if condition and 'New' in condition %} class="active"{% endif %}>New</a>
+    <a href="/designer/{{ category }}?c=Used"{% if condition and 'Used' in condition %} class="active"{% endif %}>Pre-Owned</a>
   </div>
   <ul class="item-list">
     {% for item in response.findItemsByKeywordsResponse[0].searchResult[0].item %}
       <li>
-        <a href="/designer/{{ category }}/item/{{ item.itemId }}">
+        <a href="{{ item.viewItemURL }}">
           <div class="thumb" style="background-image: url('{{ item.pictureURLLarge }}');">
             <img src="/images/square.gif">
           </div>
@@ -19,7 +19,6 @@
             <div class="ribbon"><span>New</span></div>
           {% endif %}
         </a>
-        <!--br><a href="{{ item.viewItemURL }}">View on ebay</a-->
       </li>
     {% endfor %}
   </ul>
@@ -28,5 +27,4 @@
       <a href="/designer/{{ category }}{% if i != 1 %}/{{ i }}{% endif %}{% if qs %}?{{ qs }}{% endif %}"{% if page == i or (not page and i == 1) %} class="active"{% endif %}>{{ i }}</a>
     {% endfor %}
   </div>
-  <!--a href="/designer/{{ category }}?a=1">Include Auction Items</a-->
 {% endblock %}

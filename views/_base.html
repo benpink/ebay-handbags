@@ -5,12 +5,81 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet'>
     <link href="/css/app.css" rel="stylesheet" >
   </head>
-  <body>
+  <body class="{% block body_class %}page{% endblock %}">
     <div class="page-wrap">
       <div class="sidebar">
         <h2>Designer</h2>
         <ul>
-          {% set designers = ['Celine', 'Chanel', 'Chloe', 'Fendi', 'Marc Jacobs', 'Prada', 'Burberry'] %}
+          {%
+            set designers = [
+              '3.1 Phillip Lim',
+              'Akris',
+              'Alexander McQueen',
+              'Alexander Wang',
+              'Alice + Olivia',
+              'Balenciaga',
+              'Bottega Veneta',
+              'Brunello Cucinelli',
+              'Burberry',
+              'Celine',
+              'Chanel',
+              'Chloe',
+              'Christian Louboutin',
+              'Diane von Furstenberg',
+              'Dolce & Gabbana',
+              'Edie Parker',
+              'Elizabeth and James',
+              'Eric Javits',
+              'Fendi',
+              'Ferragamo',
+              'Frye',
+              'Givenchy',
+              'Goyard',
+              'Gucci',
+              'Henry Beguelin',
+              'Jason Wu',
+              'Jimmy Choo',
+              'Judith Leiber Couture',
+              'kate spade new york',
+              'Kooba',
+              'Lanvin',
+              'Les Petits Joueurs',
+              'Liberty London',
+              'Loewe',
+              'Longchamp',
+              'Manolo Blahnik',
+              'MARC by Marc Jacobs',
+              'Marni',
+              'MCM',
+              'Michael Kors Collection',
+              'MICHAEL Michael Kors',
+              'Moschino',
+              'Nancy Gonzalez',
+              'Nina Ricci',
+              'Phillip Lim',
+              'Prada',
+              'Proenza Schouler',
+              'Rafe',
+              'Rag & Bone',
+              'Ralph Lauren',
+              'Rebecca Minkoff',
+              'Roger Vivier',
+              'Saint Laurent',
+              'Salvatore Ferragamo',
+              'See by Chloe',
+              'Smythson',
+              'Sophie Hulme',
+              'Stella McCartney',
+              'THE ROW',
+              'TOM FORD',
+              'Tomas Maier',
+              'Tory Burch',
+              'Tyler Alexandra',
+              'Valentino',
+              'VBH',
+              'Vince'
+            ]
+          %}
           {% for designer in designers %}
             <li{% if category and category | lower == designer | lower %} class="active"{% endif %}>
               <a href="/designer/{{ designer | lower }}{% if qs %}?{{ qs }}{% endif %}">
@@ -19,18 +88,10 @@
             </li>
           {% endfor %}
         </ul>
-        {% if category %}
-          {% if includeAuction %}
-            <a href="/designer/{{ category | lower }}{% if condition %}?c={{ condition }}{% endif %}">Hide Auction Items</a>
-          {% else %}
-            <a href="/designer/{{ category | lower }}?a=1{% if qs %}&{{ qs }}{% endif %}">Show Auction Items</a>
-          {% endif %}
-        {% endif %}
       </div>
       <div class="content">
         {% block content %}{% endblock %}
       </div>
     </div>
-    <script src="/js/all.js"></script>
   </body>
 </html>

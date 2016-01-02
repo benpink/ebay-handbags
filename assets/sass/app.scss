@@ -21,11 +21,16 @@ a {
 
 $sidebar-width: 250px;
 
+.page-wrap {
+  min-width: 1020px;
+}
+
 /* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 200;
   width: $sidebar-width;
   height: 100%;
   padding: 2rem;
@@ -48,6 +53,19 @@ $sidebar-width: 250px;
 .sidebar ul a:hover,
 .sidebar ul .active a {
   text-decoration: underline;
+}
+
+/* Homepage */
+.home .sidebar {
+  position: relative;
+  width: 100%;
+}
+.home .sidebar ul {
+  margin-top: 2em;
+  @include columns(2 1em);
+}
+.home .content {
+  display: none;
 }
 
 /* Content */
@@ -79,13 +97,7 @@ $sidebar-width: 250px;
   border-radius: 0 0 5px 5px;
   position: relative;
   @include transition(background-color 0.2s);
-  @include animation(fadeInDown 0.2s ease-out);
-  @include animation-fill-mode(both);
-  @for $i from 1 through 40 {
-    &:nth-child(#{$i}) {
-      @include animation-delay(#{$i * 0.05}s);
-    }
-  }
+  @include animation(fadeIn 0.2s ease-out);
   &:hover {
     background-color: #ddd;
   }
@@ -188,15 +200,4 @@ $sidebar-width: 250px;
 @include keyframes(fadeIn) {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-@include keyframes(fadeInDown) {
-  from {
-    opacity: 0;
-    @include transform(translateY(-10%));
-  }
-  to {
-    opacity: 1;
-    @include transform(none);
-  }
 }

@@ -5,8 +5,6 @@ var router      = express.Router();
 
 /* GET category page. */
 router.get('/:category/:page?', function(req, res, next) {
-  var d = new Date();
-  d.setHours(d.getHours() + 1);
   var category  = req.params.category;
   var page = req.params.page;
   var condition = req.query.c;
@@ -21,11 +19,6 @@ router.get('/:category/:page?', function(req, res, next) {
               '&keywords=' + category + '%20handbag' +
               '&paginationInput.entriesPerPage=' + config.itemsPerPage;
 
-  if (!includeAuction) {
-    url +=  '&itemFilter[' + filterIndex + '].name=ListingType' +
-            '&itemFilter[' + filterIndex + '].value=FixedPrice';
-    filterIndex++;
-  }
   // Filters
   if (condition && condition.indexOf('New') != -1) {
     url +=  '&itemFilter[' + filterIndex + '].name=Condition' +
@@ -49,7 +42,6 @@ router.get('/:category/:page?', function(req, res, next) {
         response        : JSON.parse(body),
         category        : category,
         condition       : condition,
-        includeAuction  : includeAuction,
         qs              : qs,
         page            : page
       });
