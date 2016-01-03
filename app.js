@@ -111,6 +111,7 @@ app.locals.config.categories = [
   'Tory Burch',
   'Valentino',
   'VBH',
+  'Versace',
   'Vince'
 ];
 
