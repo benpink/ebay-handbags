@@ -24,6 +24,7 @@ a {
   margin-left: $sidebar-width;
   @include respond-to('large') {
     margin-left: 0;
+    padding-top: 70px;
   }
 }
 .sidebar-visible .content {
@@ -35,4 +36,16 @@ a {
   font-size: 24px;
   text-align: center;
   position: relative;
+  @include respond-to('large') {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 12px;
+    z-index: 200;
+    margin: 0;
+    font-size: 18px;
+    border-bottom: solid 1px #aaa;
+  }
 }
