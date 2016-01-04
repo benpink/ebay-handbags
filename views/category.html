@@ -1,5 +1,8 @@
 {% extends "_base.html" %}
 
+{% block page_title %}{{ current_category | title }} designer handbags{% endblock %}
+{% block page_description %}Great prices on {{ current_category | title }} designer handbags {% endblock %}
+
 {% block content %}
   <h1><span class="menu-btn"></span> {{ current_category | title }}</h1>
   <div class="filters">
